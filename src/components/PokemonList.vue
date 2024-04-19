@@ -17,7 +17,7 @@
         <div class="pokemon-info">
           <div class="pokemon-details">
             <div class="pokemon-types">
-              <div v-for="type in pokemon.types" :key="type.slot" class="type">{{ type.type.name }}</div>
+              <div v-for="type in pokemon.types" :key="type.slot" :style="{ backgroundColor: getTypeColor(type.type.name) }" class="type">{{ type.type.name }}</div>
             </div>
           </div>
           <img :src="pokemon.sprites.front_default" alt="Sprite of {{ pokemon.name }}" class="pokemon-sprite">
@@ -131,20 +131,24 @@ export default {
     },
     getTypeColor(type) {
       const colors = {
-        fire: '#FDDFDF',
-        grass: '#DEFDE0',
-        electric: '#FCF7DE',
-        water: '#DEF3FD',
-        ground: '#f4e7da',
-        rock: '#d5d5d4',
-        fairy: '#fceaff',
-        poison: '#98d7a5',
-        bug: '#f8d5a3',
-        dragon: '#97b3e6',
-        psychic: '#eaeda1',
-        flying: '#F5F5F5',
-        fighting: '#E6E0D4',
-        normal: '#F5F5F5'
+        normal: '#AAAA99',
+        fighting: '#BB5544',
+        flying: '#8899FF',
+        poison: '#AA5599',
+        ground: '#DDBB55',
+        rock: '#BBAA66',
+        bug: '#AABB22',
+        ghost: '#6666BB',
+        steel: '#AAAABB',
+        fire: '#FF4422',
+        water: '#3399FF',
+        grass: '#77CC55',
+        electric: '#FFCC33',
+        psychic: '#FF5599',
+        ice: '#66CCFF',
+        dragon: '#7766EE',
+        dark: '#775544',
+        fairy: '#EE99EE',
       };
       return colors[type.toLowerCase()] || '#FFFFFF'; // Retorna a cor correspondente ao tipo ou branco se não houver correspondência
     }
@@ -166,14 +170,14 @@ export default {
 <style scoped>
 /* Estilos do componente PokemonList */
 .pokemon-list {
-  padding: 20px; /* Adiciona espaço interno */
+  padding: 3% 20%;
 }
 
 .filters {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
+  align-items: right;
+  margin-bottom: 50px;
 }
 
 .filters input, .filters select {
@@ -198,6 +202,7 @@ export default {
     border-bottom: solid;
     border-top: outset;
     cursor: pointer;
+    background: linear-gradient(to left, transparent 0%, transparent 50%, rgba(0, 0, 0, 0.3) 90%, rgba(0, 0, 0, 0.3) 100%);
     transition: transform 0.3s ease;
 }
 
@@ -209,13 +214,15 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px;
-  justify-content: end;
-  
+  justify-content: center;
+  gap: 40px;
 }
 
 .pokemon-id {
-  margin-left: auto;
-  padding: 10px;
+  text-align: right;
+  margin: 5px;
+  padding: 1% 8%;
+  color: white;
 }
 
 .pokemon-sprite {
@@ -231,18 +238,24 @@ export default {
   padding-left: 25px;
   font-weight: bold;
   font-size: 25px;
+  color: white;
 }
 
 .pokemon-types {
   display: flex;
   flex-direction: column; /* Empilha os tipos verticalmente */
   align-items: flex-start; /* Alinha os tipos à esquerda */
+  gap: 5px;
 }
 
 .type {
-  margin: 5px;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 5%;
+  border-radius: 10px;
+  line-height: 30px;
+  max-width: 100px;
+  width: 150%;
+  text-align: center;
+  color: white;
 }
 
 .loading {
