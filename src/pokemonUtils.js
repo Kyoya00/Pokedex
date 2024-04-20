@@ -19,6 +19,6 @@ export function getTypeColor(type) {
       dark: '#775544',
       fairy: '#EE99EE',
     };
-    return colors[type.toLowerCase()] || '#FFFFFF'; // Retorna a cor correspondente ao tipo ou branco se não houver correspondência
+    return colors[type.toLowerCase()] || '#FFFFFF';
   }
   

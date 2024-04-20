@@ -168,7 +168,6 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos do componente PokemonList */
 .pokemon-list {
   padding: 3% 20%;
 }
@@ -176,23 +175,23 @@ export default {
 .filters {
   display: flex;
   justify-content: center;
-  align-items: center; /* Alterado para centralizar verticalmente */
+  align-items: center; 
   margin-bottom: 50px;
 }
 
 .filters input, .filters select {
   margin-right: 10px;
-  padding: 8px; /* Aumentar o preenchimento */
-  border: 1px solid #ccc; /* Adicionar borda */
-  border-radius: 5px; /* Adicionar bordas arredondadas */
-  font-size: 16px; /* Ajustar o tamanho da fonte */
+  padding: 8px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  font-size: 16px;
 }
 
 .pokemon-list-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px; /* Espaçamento entre os Pokémon */
-  justify-content: center; /* Centraliza os itens horizontalmente */
+  gap: 5px;
+  justify-content: center;
 }
 
 .pokemon-item {
@@ -230,12 +229,12 @@ export default {
 }
 
 .pokemon-sprite {
-  width: 65px; /* Tamanho da sprite do Pokémon */
-  height: 69px; /* Altura automática para manter a proporção */
+  width: 65px;
+  height: 69px;
 }
 
 .pokemon-details {
-  margin-top: 10px; /* Espaçamento entre a sprite e os detalhes */
+  margin-top: 10px;
 }
 
 .pokemon-name {
@@ -248,8 +247,8 @@ export default {
 
 .pokemon-types {
   display: flex;
-  flex-direction: column; /* Empilha os tipos verticalmente */
-  align-items: flex-start; /* Alinha os tipos à esquerda */
+  flex-direction: column;
+  align-items: flex-start;
   gap: 5px;
 }
 

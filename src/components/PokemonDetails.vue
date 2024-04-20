@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { getTypeColor } from '../pokemonUtils'; // Importa a função getTypeColor
+import { getTypeColor } from '../pokemonUtils';
 
 export default {
   props: {
@@ -117,7 +117,6 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos do componente PokemonDetails */
 .pokemon-details {
   position: fixed;
   top: 0;
@@ -137,10 +136,10 @@ export default {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  max-width: 300px; /* Define um tamanho máximo para o card */
-  margin: 0 auto; /* Centraliza o card horizontalmente */
-  overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando necessário */
-  max-height: 600px; /* Define uma altura máxima para o card */
+  max-width: 300px;
+  margin: 0 auto; 
+  overflow-y: auto; 
+  max-height: 600px; 
 }
 
 .pokemon-header {
@@ -155,13 +154,13 @@ export default {
 
 .pokemon-images {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Duas colunas */
-  gap: 10px; /* Espaçamento entre as imagens */
-  justify-content: center; /* Centraliza horizontalmente as colunas */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; 
+  justify-content: center;
 }
 
 .pokemon-images img {
-  max-width: 100%; /* Assegura que as imagens não ultrapassem a largura da coluna */
+  max-width: 100%;
   padding: 0px 20px;
 }
 
@@ -194,7 +193,7 @@ export default {
 
 .pokemon-attacks {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+  grid-template-columns: repeat(3, 1fr);
   gap: 5px;
 }
 
@@ -230,7 +229,7 @@ export default {
 
 .pokemon-games {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  grid-template-columns: repeat(2, 1fr);
   gap: 5px;
 }
 </style>

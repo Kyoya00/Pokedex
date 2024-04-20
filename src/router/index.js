@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      component: AboutView // Use o componente AboutView diretamente
+      component: AboutView
     }
   ]
 });
