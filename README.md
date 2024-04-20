@@ -1,7 +1,5 @@
 # Pokedex App
 
-![Pokedex App](link_para_imagem)
-
 ## Descrição
 
 O Pokedex App é uma aplicação web desenvolvida em Vue.js que permite aos usuários explorar informações sobre Pokémon, como seus tipos, habilidades, estatísticas e muito mais.
