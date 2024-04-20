@@ -176,12 +176,16 @@ export default {
 .filters {
   display: flex;
   justify-content: center;
-  align-items: right;
+  align-items: center; /* Alterado para centralizar verticalmente */
   margin-bottom: 50px;
 }
 
 .filters input, .filters select {
   margin-right: 10px;
+  padding: 8px; /* Aumentar o preenchimento */
+  border: 1px solid #ccc; /* Adicionar borda */
+  border-radius: 5px; /* Adicionar bordas arredondadas */
+  font-size: 16px; /* Ajustar o tamanho da fonte */
 }
 
 .pokemon-list-container {

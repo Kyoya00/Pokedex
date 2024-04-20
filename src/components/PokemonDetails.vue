@@ -9,7 +9,7 @@
           <img v-for="(sprite, key) in filteredSprites" :key="key" :src="sprite" :alt="`Sprite of ${pokemon.name}`">
         </div>
         <div class="pokemon-types">
-          <div v-for="type in pokemon.types" :key="type.slot" class="type">{{ type.type.name }}</div>
+          <div v-for="type in pokemon.types" :key="type.slot" :style="{ backgroundColor: getTypeColor(type.type.name) }" class="type">{{ type.type.name }}</div>
         </div>
         <div>
           <h4>Attacks</h4>
@@ -22,7 +22,10 @@
         </div>
         <div class="pokemon-evolutions" v-if="evolutionChain.length">
           <ul>
-            <li v-for="evolution in evolutionChain" :key="evolution.species.name">{{ evolution.species.name }}</li>
+            <li v-for="evolution in evolutionChain" :key="evolution.species.name">
+              <img :src="evolution.species.sprite" :alt="`Sprite of ${evolution.species.name}`">
+              <span>{{ evolution.species.name }}</span>
+            </li>
           </ul>
         </div>
         <div>
@@ -36,8 +39,9 @@
   </div>
 </template>
 
-
 <script>
+import { getTypeColor } from '../pokemonUtils'; // Importa a função getTypeColor
+
 export default {
   props: {
     pokemon: {
@@ -66,22 +70,44 @@ export default {
         const evolutionChainUrl = data.evolution_chain.url;
         const evolutionResponse = await fetch(evolutionChainUrl);
         const evolutionData = await evolutionResponse.json();
-        this.processEvolutionChain(evolutionData.chain);
+        await this.processEvolutionChainWithSprites(evolutionData.chain);
       } catch (error) {
         console.error('Erro ao buscar os detalhes de evolução:', error);
       }
     },
-    processEvolutionChain(chain) {
-      this.traverseEvolutionChain(chain, this.evolutionChain);
+    async processEvolutionChainWithSprites(chain) {
+      // Limpa o array de evoluções
+      this.evolutionChain = [];
+      // Adiciona as evoluções com sprites
+      await this.traverseEvolutionChainWithSprites(chain, this.evolutionChain);
     },
-    traverseEvolutionChain(chain, result) {
-      result.push({ species: { name: chain.species.name } });
+    async traverseEvolutionChainWithSprites(chain, result) {
+      // Adiciona a espécie atual com a sprite
+      const sprite = await this.fetchPokemonSprite(chain.species.name);
+      result.push({ 
+        species: { 
+          name: chain.species.name, 
+          sprite: sprite 
+        } 
+      });
+      // Se houver evoluções, processa cada uma delas
       if (chain.evolves_to && chain.evolves_to.length) {
-        chain.evolves_to.forEach(subChain => {
-          this.traverseEvolutionChain(subChain, result);
-        });
+        for (let i = 0; i < chain.evolves_to.length; i++) {
+          await this.traverseEvolutionChainWithSprites(chain.evolves_to[i], result);
+        }
       }
-    }
+    },
+    async fetchPokemonSprite(pokemonName) {
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`);
+        const data = await response.json();
+        return data.sprites.front_default;
+      } catch (error) {
+        console.error('Erro ao buscar a sprite do Pokémon:', error);
+        return null;
+      }
+    },
+    getTypeColor // Adiciona o método getTypeColor
   },
   mounted() {
     // Chama a função para buscar as evoluções do Pokémon
@@ -111,8 +137,10 @@ export default {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  max-height: 80vh; /* Altura máxima do card */
-  overflow-y: auto; /* Adiciona scroll quando necessário */
+  max-width: 300px; /* Define um tamanho máximo para o card */
+  margin: 0 auto; /* Centraliza o card horizontalmente */
+  overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando necessário */
+  max-height: 600px; /* Define uma altura máxima para o card */
 }
 
 .pokemon-header {
@@ -126,28 +154,33 @@ export default {
 }
 
 .pokemon-images {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+  gap: 10px; /* Espaçamento entre as imagens */
+  justify-content: center; /* Centraliza horizontalmente as colunas */
 }
 
 .pokemon-images img {
-  margin: 0 5px;
-  max-width: 80px;
+  max-width: 100%; /* Assegura que as imagens não ultrapassem a largura da coluna */
+  padding: 0px 20px;
 }
 
 .pokemon-types {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 .type {
-  margin: 3px;
-  padding: 3px;
-  background-color: #f0f0f0;
-  border-radius: 3px;
-  font-size: 12px;
+  padding: 5%;
+  border-radius: 10px;
+  line-height: 30px;
+  max-width: 100px;
+  width: 150%;
+  text-align: center;
+  color: white;
+  box-shadow: 3px 2px black;
 }
 
 .pokemon-attacks {
@@ -176,6 +209,16 @@ export default {
   font-size: 14px;
 }
 
+.pokemon-evolutions ul li {
+  display: flex;
+  align-items: center;
+}
+
+.pokemon-evolutions ul li img {
+  max-width: 50px;
+  margin-right: 10px;
+}
+
 .pokemon-games {
   margin-top: 10px;
 }
@@ -189,18 +232,5 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2 colunas */
   gap: 5px;
-}
-
-.close-button {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ccc;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
 }
 </style>
