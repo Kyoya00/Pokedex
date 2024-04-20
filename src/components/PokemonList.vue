@@ -20,7 +20,7 @@
               <div v-for="type in pokemon.types" :key="type.slot" :style="{ backgroundColor: getTypeColor(type.type.name) }" class="type">{{ type.type.name }}</div>
             </div>
           </div>
-          <img :src="pokemon.sprites.front_default" alt="Sprite of {{ pokemon.name }}" class="pokemon-sprite">
+          <img :src="pokemon.sprites.other.showdown.front_default" alt="Sprite of {{ pokemon.name }}" class="pokemon-sprite">
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@ export default {
 .pokemon-list-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Espaçamento entre os Pokémon */
+  gap: 5px; /* Espaçamento entre os Pokémon */
   justify-content: center; /* Centraliza os itens horizontalmente */
 }
 
@@ -215,7 +215,7 @@ export default {
   align-items: center;
   padding: 10px;
   justify-content: center;
-  gap: 40px;
+  gap: 60px;
 }
 
 .pokemon-id {
@@ -226,8 +226,8 @@ export default {
 }
 
 .pokemon-sprite {
-  width: 100px; /* Tamanho da sprite do Pokémon */
-  height: auto; /* Altura automática para manter a proporção */
+  width: 65px; /* Tamanho da sprite do Pokémon */
+  height: 69px; /* Altura automática para manter a proporção */
 }
 
 .pokemon-details {
@@ -239,6 +239,7 @@ export default {
   font-weight: bold;
   font-size: 25px;
   color: white;
+  text-shadow: 2px 2px #000000;
 }
 
 .pokemon-types {
@@ -256,6 +257,7 @@ export default {
   width: 150%;
   text-align: center;
   color: white;
+  box-shadow: 3px 2px black;
 }
 
 .loading {

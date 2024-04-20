@@ -16,7 +16,7 @@ export default {
 
 <style>
 #app {
-  font-family: Arial, sans-serif;
+  font-family: 'Pokemon Solid', sans-serif;
   justify-content: center;
   align-items: center;
   height: 100vh;
